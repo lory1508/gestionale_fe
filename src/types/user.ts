@@ -1,7 +1,7 @@
 interface User {
   id: number;
   email: string;
-  password: string;
+  password_md5: string;
   name: string;
 }
 

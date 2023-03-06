@@ -1,8 +1,9 @@
 interface Vehicle {
-  title: string;
-  location: string;
-  salary: number;
   id: string;
+  licensePlate: string;
+  type: string;
+  registration: string;
+  contract: string;
 }
 
 export default Vehicle;

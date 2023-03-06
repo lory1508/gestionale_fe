@@ -1,8 +1,10 @@
 interface Expense {
-  title: string;
-  location: string;
-  salary: number;
   id: string;
+  invoiceNumber: string;
+  amount: number;
+  date: string;
+  supplierId: string;
+  subject: string;
 }
 
 export default Expense;

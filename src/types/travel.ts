@@ -1,8 +1,16 @@
 interface Travel {
-  title: string;
-  location: string;
-  salary: number;
   id: string;
+  customerID: string;
+  licensePlate: string;
+  driverID: string;
+  loadingPlace: string;
+  loadingDate: string;
+  unloadingPlace: string;
+  unloadingDate: string;
+  loadWeight: string;
+  CMR: string;
+  price: string;
+  distance: number;
 }
 
 export default Travel;

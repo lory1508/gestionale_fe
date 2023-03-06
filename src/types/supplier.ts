@@ -1,8 +1,9 @@
 interface Supplier {
-  title: string;
-  location: string;
-  salary: number;
   id: string;
+  name: string;
+  vat: string;
+  contact: string;
+  phone: string;
 }
 
 export default Supplier;
