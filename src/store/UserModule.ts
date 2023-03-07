@@ -1,4 +1,3 @@
-import { logout } from './../api/users';
 import User from "@/types/user";
 
 export interface UserState {
@@ -28,22 +27,31 @@ export default {
         state.user.logged = false;
       }
     },
+    login: function(state: UserState, user: User): void {
+      state.user = user;
+    },
     logout: function(state: UserState): void {
-      logout().then(() => {
-        state.user = {
-          id: 0,
-          email: "",
-          password_md5: "",
-          name: "",
-          logged: false,
-        };
-      });
+      console.log("mutations logout", state.user);
+      
+      state.user = {
+        id: 0,
+        email: "",
+        password_md5: "",
+        name: "",
+        logged: false,
+      };
     }
   },
 
   actions: {
     setUser: function(context: any, user: User): void {
       context.commit("setUser", user);
+    },
+    login: function(context: any, user: User): void {
+      context.commit("setUser", user);
+    },
+    logout: function(context: any): void {
+      context.commit("logout");
     }
   },
 
@@ -52,7 +60,7 @@ export default {
       return state.user;
     },
     isLoggedIn: function(state: UserState): boolean {
-      return state.user !== null;
+      return state.user !== null && state.user.logged;
     },
   }
 }

@@ -81,7 +81,7 @@ const login = (): void => {
       logged.value = true
       console.log('logged');
       user.logged = true
-      store.commit('setUser', user)
+      store.commit('user/login', user)
       router.push({ name: 'dashboard' })
     } else {
       failedLogin.value = true

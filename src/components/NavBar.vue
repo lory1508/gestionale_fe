@@ -4,34 +4,36 @@
     mode="horizontal"
     :options="menuOptions"
   />
+  <NButton 
+    v-if="loggedIn"
+    type="primary" 
+    @click="logout"
+  >
+    Logout
+  </NButton>
 </template>
 
 <script setup lang="ts">
 import { h, ref, computed } from 'vue'
-import { NMenu } from 'naive-ui';
+import { NButton, NMenu } from 'naive-ui';
 import { RouterLink } from 'vue-router'
 import { useStore } from 'vuex'
 
 // Types
 import type { MenuOption } from 'naive-ui'
 import type { Ref } from 'vue'
+import router from '@/router';
 
 const store = useStore()
 
-const login_url = computed(() => {
-  return {
-    name: store.getters['user/isLoggedIn'] ? 'login' : 'dashboard',
-    // params: {
-    //   lang: 'en-US'
-    // }
-    label: () =>
-      h(
-        store.commit('user/logout'),
-        { default: () => store.getters['user/isLoggedIn'] ? 'logout' : 'login' }
-      ),
-    key: 'login',
-  }
+const loggedIn = computed(() => {
+  return store.getters['user/isLoggedIn']
 })
+
+const logout = () => {
+  store.dispatch('user/logout')
+  router.push({ name: 'login' })
+}
 
 const activeKey: Ref<string | null> = ref(null)
 const menuOptions: MenuOption[] = [
@@ -51,27 +53,6 @@ const menuOptions: MenuOption[] = [
       ),
     key: 'go-back-home',
   },
-  login_url.value,
-  // {
-  //   key: 'divider-1',
-  //   type: 'divider',
-  //   props: {
-  //     style: {
-  //       marginLeft: '32px'
-  //     }
-  //   }
-  // },
-  // {
-  //   label: 'Pinball 1973',
-  //   key: 'pinball-1973',
-  //   disabled: true,
-  //   children: [
-  //     {
-  //       label: 'Rat',
-  //       key: 'rat'
-  //     }
-  //   ]
-  // },
 ]
 
 
