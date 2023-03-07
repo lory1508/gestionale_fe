@@ -1,0 +1,18 @@
+{
+  "data": [
+    {
+      "id": 0,
+      "email": "lorenzo@gmail.com",
+      "password_md5": "189bbbb00c5f1fb7fba9ad9285f193d1",
+      "name": "Lorenzo",
+      "logged": false
+    },
+    {
+      "id": 1,
+      "email": "gabriele@gmail.com",
+      "password_md5": "189bbbb00c5f1fb7fba9ad9285f193d1",
+      "name": "Gabriele",
+      "logged": false
+    }
+  ]
+}
