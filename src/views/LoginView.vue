@@ -26,6 +26,9 @@
       <div class="p-4">
         <NButton type="primary" @click="login" round>Login</NButton>
       </div>
+      <div class="text-2xl text-red-700 font-semibold">
+        PLEASE WORK
+      </div>
       <NAlert 
         v-if="failedLogin"
         title="Login failed" 

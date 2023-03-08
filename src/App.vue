@@ -1,6 +1,6 @@
 <template>
-  <!-- <NConfigProvider :theme="darkTheme"> -->
-  <NConfigProvider >
+  <NConfigProvider :theme="darkTheme">
+  <!-- <NConfigProvider > -->
     <NNotificationProvider>
       <div class="h-screen w-screen">
         <NavBar />
@@ -19,7 +19,9 @@
 import NavBar from "./components/NavBar.vue";
 import "./input.css";
 // TODO: setup tailwind
+
 // components
+// import { NConfigProvider, NNotificationProvider } from 'naive-ui'
 import { darkTheme, NConfigProvider, NNotificationProvider } from 'naive-ui'
 
 </script>
