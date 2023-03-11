@@ -1,6 +1,6 @@
 <template>
-  <div>
-    <NCard class="flex flex-row justify-center items-center" >
+  <div class="justify-center flex flex-row pt-20">
+    <NCard class="flex flex-row justify-center items-center w-1/2" >
       <div class="p-4">
         <NGradientText type="success">Login</NGradientText>
         <p class="text-gray-500">Please login to continue</p>
@@ -24,10 +24,7 @@
         />
       </div>
       <div class="p-4">
-        <NButton type="primary" @click="login" round>Login</NButton>
-      </div>
-      <div class="text-2xl text-red-700 font-semibold">
-        PLEASE WORK
+        <NButton @click="login" round>Login</NButton>
       </div>
       <NAlert 
         v-if="failedLogin"
@@ -82,7 +79,6 @@ const login = (): void => {
     logged.value = user.password_md5 === password_md5
     if(logged.value) {
       logged.value = true
-      console.log('logged');
       user.logged = true
       store.commit('user/login', user)
       router.push({ name: 'dashboard' })

@@ -19,6 +19,11 @@ const routes: Array<RouteRecordRaw> = [
       requiresAuth: false
     }
   },
+  {
+    path: '/:pathMatch(.*)*',
+    name: 'not-found',
+    component: () => import('@/views/NotFound.vue'),
+  }
 ]
 
 const router = createRouter({

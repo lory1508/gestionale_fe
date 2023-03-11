@@ -1,18 +1,28 @@
 <template>
   <div>
-    Dashborad
+    <NH1>
+      <NText type="primary">
+        Dashboard
+      </NText>
+    </NH1>
+    <NDivider />
+    <NDataTable
+      :columns="columns"
+      :dataSource="getExpenses()"
+      :rowKey="rowKey"
+      :pagination="pagination"
+    />
   </div>
 </template>
 
 <script setup lang="ts">
-import { useStore } from "vuex";
-import { onMounted } from "vue";
+import Expense from '@/types/expense';
 
-const store = useStore();
+// mocks
+import expenses_json from '@/mocks/expenses.json'
+import { NDataTable, NDivider, NH1, NText } from 'naive-ui';
 
-onMounted(() => {
-  console.log("mounted");
-  console.log(store);
-  
-});
+const getExpenses = (): Expense[] => {
+  return expenses_json.data
+};
 </script>

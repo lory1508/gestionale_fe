@@ -1,21 +1,25 @@
 <template>
-  <NMenu 
-    v-model:value="activeKey"
-    mode="horizontal"
-    :options="menuOptions"
-  />
-  <NButton 
-    v-if="loggedIn"
-    type="primary" 
-    @click="logout"
+  <nav 
+    class="sticky top-0 transition duration-300 bg-opacity-30 filter backdrop-blur flex flex-row justify-between items-center pt-2 px-2"
   >
-    Logout
-  </NButton>
+    <NMenu 
+      v-model:value="activeKey"
+      mode="horizontal"
+      :options="menuOptions"
+    />
+    <NButton 
+      v-if="loggedIn"
+      @click="logout"
+    >
+      Logout
+    </NButton>
+  </nav>
+  <NDivider />
 </template>
 
 <script setup lang="ts">
-import { h, ref, computed } from 'vue'
-import { NButton, NMenu } from 'naive-ui';
+import { h, ref, computed, onBeforeMount } from 'vue'
+import { NButton, NDivider, NMenu } from 'naive-ui';
 import { RouterLink } from 'vue-router'
 import { useStore } from 'vuex'
 
@@ -34,6 +38,13 @@ const logout = () => {
   store.dispatch('user/logout')
   router.push({ name: 'login' })
 }
+
+const scrolled = ref(false)
+onBeforeMount(() => {
+  window.addEventListener('scroll', () => {
+    scrolled.value = window.scrollY > 0
+  })
+})
 
 const activeKey: Ref<string | null> = ref(null)
 const menuOptions: MenuOption[] = [

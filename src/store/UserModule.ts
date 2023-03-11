@@ -31,8 +31,6 @@ export default {
       state.user = user;
     },
     logout: function(state: UserState): void {
-      console.log("mutations logout", state.user);
-      
       state.user = {
         id: 0,
         email: "",
