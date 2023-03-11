@@ -22,6 +22,13 @@ import Expense from '@/types/expense';
 import expenses_json from '@/mocks/expenses.json'
 import { NDataTable, NDivider, NH1, NText } from 'naive-ui';
 
+// const columns: createColumns({
+//   play (row: Song) {
+//     message.info(`Play ${row.title}`)
+//   }
+// }),
+
+
 const getExpenses = (): Expense[] => {
   return expenses_json.data
 };
