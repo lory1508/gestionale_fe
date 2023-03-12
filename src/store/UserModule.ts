@@ -20,15 +20,10 @@ export default {
     setUser: function(state: UserState, user: User): void {
       state.user = user;
     },
-    setLoggedIn: function(state: UserState, loggedIn: boolean): void {
-      if( loggedIn ) {
-        state.user.logged = true;
-      } else {
-        state.user.logged = false;
-      }
-    },
     login: function(state: UserState, user: User): void {
+      user.logged = true;
       state.user = user;
+      localStorage.setItem("user", JSON.stringify(user));
     },
     logout: function(state: UserState): void {
       state.user = {
@@ -38,6 +33,7 @@ export default {
         name: "",
         logged: false,
       };
+      localStorage.removeItem("user");
     }
   },
 
@@ -58,7 +54,7 @@ export default {
       return state.user;
     },
     isLoggedIn: function(state: UserState): boolean {
-      return state.user !== null && state.user.logged;
+      return state.user !== null && state.user.logged || localStorage.getItem("user") !== null;
     },
   }
 }

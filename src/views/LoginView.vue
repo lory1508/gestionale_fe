@@ -40,19 +40,17 @@
 </template>
 
 <script setup lang="ts">
-import { ref, onMounted } from 'vue'
+import { ref } from 'vue'
 import { useStore } from 'vuex'
 import {Md5} from 'ts-md5';
 import { useRouter } from 'vue-router'
+import api from '@/http-common'
 
 // components
 import { NButton, NCard, NGradientText, NInput, NAlert } from 'naive-ui'
 
 // types
 import User from '@/types/user'
-
-// mocks
-import users_json from '@/mocks/users.json'
 
 const router = useRouter()
 const store = useStore()
@@ -61,38 +59,43 @@ const logged = ref(false) as { value: boolean }
 const failedLogin = ref(false) as { value: boolean }
 const email = ref('');
 const password = ref('');
-const users = [] as User[];
 
-const getUsers = (): User[] => {
-  return users_json.data
+const login = async (): Promise<void> => {
+  failedLogin.value = false;
+  const password_md5 = Md5.hashStr(password.value)
+  const response = await api.post('/users/login', {
+    email: email.value,
+    password_md5: password_md5
+  });
+  if (response.data.success) {
+    logged.value = true;
+    const user = response.data.user as User
+    store.commit('user/login', user)
+    router.push({ path: '/dashboard' })
+  } else {
+    failedLogin.value = true;
+    logged.value = false;
+  }
 };
 
-const getUserByEmail = (email: string): User | undefined => {
-  return getUsers().find(user => user.email === email)
-};
+// const login = (): void => {
+//   failedLogin.value = false
+//   const user = getUserByEmail(email.value)
+//   if (user) {
+//     const password_md5 = Md5.hashStr(password.value)
+//     logged.value = user.password_md5 === password_md5
+//     if(logged.value) {
+//       logged.value = true
+//       user.logged = true
+//       store.commit('user/login', user)
+//       router.push({ name: 'dashboard' })
+//     } else {
+//       failedLogin.value = true
+//       logged.value = false
+//     }
+//   }
+// };
 
-const login = (): void => {
-  failedLogin.value = false
-  const user = getUserByEmail(email.value)
-  if (user) {
-    const password_md5 = Md5.hashStr(password.value)
-    logged.value = user.password_md5 === password_md5
-    if(logged.value) {
-      logged.value = true
-      user.logged = true
-      store.commit('user/login', user)
-      router.push({ name: 'dashboard' })
-    } else {
-      failedLogin.value = true
-      logged.value = false
-    }
-}
-};
-
-onMounted(() => {
-  const data = getUsers()
-  users.push(...data)
-})
 </script>
 
 <style scoped>

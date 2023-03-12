@@ -17,6 +17,8 @@
 
 <script setup lang="ts">
 import Expense from '@/types/expense';
+import { onMounted } from 'vue';
+import api from '@/http-common';
 
 // mocks
 import expenses_json from '@/mocks/expenses.json'
@@ -28,8 +30,17 @@ import { NDataTable, NDivider, NH1, NText } from 'naive-ui';
 //   }
 // }),
 
+const getCustomers = async () => {
+  const response = await api.get('/customers');
+  return response.data;
+};
 
 const getExpenses = (): Expense[] => {
   return expenses_json.data
 };
+
+onMounted( async () => {
+  const customers = await getCustomers();
+  console.log(customers);
+});
 </script>
