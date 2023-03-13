@@ -6,23 +6,25 @@
       </NText>
     </NH1>
     <NDivider />
-    <NDataTable
+    <!-- <NDataTable
       :columns="columns"
       :dataSource="getExpenses()"
       :rowKey="rowKey"
       :pagination="pagination"
-    />
+    /> -->
   </div>
 </template>
 
 <script setup lang="ts">
-import Expense from '@/types/expense';
+// import Expense from '@/types/expense';
 import { onMounted } from 'vue';
 import api from '@/http-common';
 
+import { getCustomers } from '@/api/customers';
+
 // mocks
-import expenses_json from '@/mocks/expenses.json'
-import { NDataTable, NDivider, NH1, NText } from 'naive-ui';
+// import expenses_json from '@/mocks/expenses.json'
+import { NDivider, NH1, NText } from 'naive-ui';
 
 // const columns: createColumns({
 //   play (row: Song) {
@@ -30,14 +32,9 @@ import { NDataTable, NDivider, NH1, NText } from 'naive-ui';
 //   }
 // }),
 
-const getCustomers = async () => {
-  const response = await api.get('/customers');
-  return response.data;
-};
-
-const getExpenses = (): Expense[] => {
-  return expenses_json.data
-};
+// const getExpenses = (): Expense[] => {
+//   return expenses_json.data
+// };
 
 onMounted( async () => {
   const customers = await getCustomers();

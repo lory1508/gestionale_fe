@@ -1,9 +1,9 @@
+import api from "@/http-common";
 import Customer from "@/types/customer";
 
 export const getCustomers = async (): Promise<Customer[]> => {
-  const response = await fetch("/api/customers");
-  const data = await response.json();
-  return data;
+  const response = await api.get('/customers');
+  return response.data;
 }
 
 export const getCustomer = async (id: string): Promise<Customer> => {

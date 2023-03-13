@@ -1,12 +1,14 @@
+import { Value } from "naive-ui/es/date-picker/src/interface";
+
 interface Driver {
-  id: string;
-  first_name: string;
-  last_name: string;
-  hiring_date: string;
-  license_number: string;
-  license_expiration: string;
-  permanent_contract: boolean;
-  contract_expiration: string;
+  _id: string | null;
+  name: string;
+  surname: string;
+  hiringDate: Value | null | undefined;
+  license: string;
+  licenseExpirationDate: Value | null | undefined;
+  permanentContract: string | number | undefined;
+  contractExpiration: Value | null | undefined;
 }
 
 export default Driver;
