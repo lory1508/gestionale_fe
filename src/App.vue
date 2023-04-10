@@ -7,22 +7,24 @@
         <NDialogProvider>
           <NNotificationProvider>
             <NSpace vertical size="large">
-              <div class="flex flex-row">
-                <NLayout has-sider>
-                  <NLayoutSider
-                    bordered
-                    collapse-mode="width"
-                    :collapsed-width="64"
-                    :width="240"
-                    :collapsed="collapsed"
-                    show-trigger
-                    @collapse="collapsed = true"
-                    @expand="collapsed = false"
-                  >
-                    <NavBar :collapsed="collapsed" />
-                  </NLayoutSider>
-                </NLayout>
-                <div class="w-full">
+              <div class="flex">
+                <div v-if="isLoggedIn" class="h-screen sticky top-0 z-20">
+                  <NLayout has-sider>
+                    <NLayoutSider
+                      bordered
+                      collapse-mode="width"
+                      :collapsed-width="64"
+                      :width="240"
+                      :collapsed="collapsed"
+                      show-trigger
+                      @collapse="collapsed = true"
+                      @expand="collapsed = false"
+                    >
+                      <NavBar :collapsed="collapsed" />
+                    </NLayoutSider>
+                  </NLayout>
+                </div>
+                <div class="w-full p-4">
                   <NLayout>
                     <NLayoutContent>
                       <RouterView

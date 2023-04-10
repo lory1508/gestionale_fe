@@ -1,61 +1,65 @@
 <template>
-  <NCard
-    bordered
-    shadow="lg"
-  >
-    <div class="flex flex-col gap-4">
-      <div class="flex flex-row gap-4 mb-0">
-        <div class="mt-5">
-          <NIconWrapper :size="50" :border-radius="100">
-            <NIcon :size="36" color="white">
-              <Person />
-            </NIcon>
-          </NIconWrapper>
-        </div>
-        <div class="flex flex-col gap-0">
-          <NH2>{{ driver.name }} {{ driver.surname }}</NH2>
-          <NTag :type=" driver.permanentContract ? 'success' : 'warning'"> {{ contract(driver) }} </NTag>
-        </div>
-      </div>
-      <NDivider />
-      <NText>
-        <strong>Data assunzione:</strong> {{ formattedDate(driver.hiringDate) }}
-      </NText>
-      <NCard title="Patente" size="small">
-        <div class="flex flex-col">
-          <NText>
-            Numero: <NTag type="info" :bordered="false"> {{ driver.license }} </NTag>
-          </NText>
-          <NText>
-            Scadenza: {{ formattedDate(driver.licenseExpirationDate) }}
-          </NText>
-        </div>
-      </NCard>
+  <div class="shadow-lg duration-200 
+              hover:scale-110 hover:shadow-emerald-100">
+    <NCard
+      bordered
+      shadow="lg"
+    >
       <div class="flex flex-col gap-4">
-        <NButton 
-          type="primary"
-          round
-          strong
-          @click="handleEdit"
-        >
-          Modifica
-        </NButton>
-        <NButton 
-          type="error"
-          round
-          strong
-          @click="handleDelete"
-        >
-          Elimina
-        </NButton>
+        <div class="flex flex-row gap-4 mb-0">
+          <div class="mt-5">
+            <NIconWrapper :size="50" :border-radius="100">
+              <NIcon :size="36" color="white">
+                <Person />
+              </NIcon>
+            </NIconWrapper>
+          </div>
+          <div class="flex flex-col gap-0">
+            <NH2>{{ driver.name }} {{ driver.surname }}</NH2>
+            <NTag :type=" driver.permanentContract ? 'success' : 'warning'"> {{ contract(driver) }} </NTag>
+          </div>
+        </div>
+        <NDivider />
+        <NText>
+          <strong>Data assunzione:</strong> {{ formattedDate(driver.hiringDate) }}
+        </NText>
+        <NCard title="Patente" size="small">
+          <div class="flex flex-col">
+            <NText>
+              Numero: <NTag type="info" :bordered="false"> {{ driver.license }} </NTag>
+            </NText>
+            <NText>
+              Scadenza: {{ formattedDate(driver.licenseExpirationDate) }}
+            </NText>
+          </div>
+        </NCard>
+        <div class="grid grid-cols-2 gap-4">
+          <NButton 
+            type="primary"
+            round
+            strong
+            @click="handleEdit"
+          >
+            Modifica
+          </NButton>
+          <NButton 
+            type="error"
+            round
+            strong
+            @click="handleDelete"
+          >
+            Elimina
+          </NButton>
+        </div>
       </div>
-    </div>
-  </NCard>
+    </NCard>
+  </div>
 </template>
 
 <script setup lang="ts">
 import { defineProps, defineEmits } from 'vue';
 import { Person } from '@vicons/ionicons5';
+import { formattedDate } from '@/utils/utils';
 
 // types
 import Driver from '@/types/driver';
@@ -64,8 +68,7 @@ import Driver from '@/types/driver';
 import { deleteDriver } from '@/api/drivers';
 
 // components
-import { NButton, NCard, NDivider, NH2, NTag, NText, NIcon, NIconWrapper, NDialog, useMessage, useDialog } from 'naive-ui';
-import { Value } from 'naive-ui/es/date-picker/src/interface';
+import { NButton, NCard, NDivider, NH2, NTag, NText, NIcon, NIconWrapper, useMessage, useDialog } from 'naive-ui';
 
 const props = defineProps({
   driver: {
@@ -81,12 +84,6 @@ const dialog = useDialog();
 
 const contract = (driver: Driver) => {
   return driver.permanentContract ? 'Tempo Indeterminato' : 'Tempo Determinato';
-}
-
-const formattedDate = (date: Value | null | undefined) => {
-  if (!date) return '';
-  const dateObj = new Date(date.toString());
-  return dateObj.toLocaleDateString();
 }
 
 const deleteDriverMethod = async () => {

@@ -24,7 +24,7 @@ const routes: Array<RouteRecordRaw> = [
     name: 'customers',
     component: () => import('@/views/CustomersView.vue'),
     meta: {
-      requiresAuth: false
+      requiresAuth: true
     }
   },
   {
@@ -32,7 +32,7 @@ const routes: Array<RouteRecordRaw> = [
     name: 'drivers',
     component: () => import('@/views/DriversView.vue'),
     meta: {
-      requiresAuth: false
+      requiresAuth: true
     }
   },
   {
@@ -40,7 +40,7 @@ const routes: Array<RouteRecordRaw> = [
     name: 'expenses',
     component: () => import('@/views/ExpensesView.vue'),
     meta: {
-      requiresAuth: false
+      requiresAuth: true
     }
   },
   {
@@ -48,7 +48,7 @@ const routes: Array<RouteRecordRaw> = [
     name: 'invoices',
     component: () => import('@/views/InvoicesView.vue'),
     meta: {
-      requiresAuth: false
+      requiresAuth: true
     }
   },
   {
@@ -56,7 +56,7 @@ const routes: Array<RouteRecordRaw> = [
     name: 'maintenance',
     component: () => import('@/views/MaintenanceView.vue'),
     meta: {
-      requiresAuth: false
+      requiresAuth: true
     }
   },
   {
@@ -64,7 +64,7 @@ const routes: Array<RouteRecordRaw> = [
     name: 'suppliers',
     component: () => import('@/views/SuppliersView.vue'),
     meta: {
-      requiresAuth: false
+      requiresAuth: true
     }
   },
   {
@@ -72,7 +72,7 @@ const routes: Array<RouteRecordRaw> = [
     name: 'travels',
     component: () => import('@/views/TravelsView.vue'),
     meta: {
-      requiresAuth: false
+      requiresAuth: true
     }
   },
   {
@@ -80,7 +80,7 @@ const routes: Array<RouteRecordRaw> = [
     name: 'vehicles',
     component: () => import('@/views/VehiclesView.vue'),
     meta: {
-      requiresAuth: false
+      requiresAuth: true
     }
   },
   {

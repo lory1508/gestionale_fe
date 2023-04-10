@@ -7,37 +7,22 @@ export const getCustomers = async (): Promise<Customer[]> => {
 }
 
 export const getCustomer = async (id: string): Promise<Customer> => {
-  const response = await fetch(`/api/customers/${id}`);
-  const data = await response.json();
-  return data;
+  const res = await api.get(`/customers/${id}`);
+  return res.data;
 }
 
 export const createCustomer = async (customer: Customer): Promise<Customer> => {
-  const response = await fetch("/api/customers", {
-    method: "POST",
-    headers: {
-      "Content-Type": "application/json",
-    },
-    body: JSON.stringify(customer),
-  });
-  const data = await response.json();
-  return data;
+  const res = await api.post('/customers', customer);
+  return res.data;
 }
 
 export const updateCustomer = async (customer: Customer): Promise<Customer> => {
-  const response = await fetch(`/api/customers/${customer.id}`, {
-    method: "PUT",
-    headers: {
-      "Content-Type": "application/json",
-    },
-    body: JSON.stringify(customer),
-  });
-  const data = await response.json();
-  return data;
+  const res = await api.patch(`/customers/${customer._id}`, customer);
+  return res.data;
 }
 
-export const deleteCustomer = async (id: string): Promise<void> => {
-  await fetch(`/api/customers/${id}`, {
-    method: "DELETE",
-  });
+export const deleteCustomer = async (id: string | null): Promise<number> => {
+  if (!id) return 500;
+  const res = await api.delete(`/customers/${id}`);
+  return res.status;
 }

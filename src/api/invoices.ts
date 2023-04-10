@@ -1,9 +1,9 @@
 import Invoice from "@/types/invoice";
+import api from "@/http-common";
 
 export const getInvoices = async (): Promise<Invoice[]> => {
-  const response = await fetch("/api/invoices");
-  const data = await response.json();
-  return data;
+  const response = await api.get("/invoices");
+  return response.data;
 }
 
 export const getInvoice = async (id: string): Promise<Invoice> => {
@@ -25,7 +25,7 @@ export const createInvoice = async (invoice: Invoice): Promise<Invoice> => {
 }
 
 export const updateInvoice = async (invoice: Invoice): Promise<Invoice> => {
-  const response = await fetch(`/api/invoices/${invoice.id}`, {
+  const response = await fetch(`/api/invoices/${invoice._id}`, {
     method: "PUT",
     headers: {
       "Content-Type": "application/json",

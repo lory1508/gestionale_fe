@@ -1,10 +1,12 @@
+import Customer from "./customer";
+
 interface Invoice {
-  id: string;
+  _id: string;
   invoiceNumber: string;
   amount: number;
   date: string;
-  customerId: string;
-  subject: string;
+  customer: Customer;
+  paid: boolean;
 }
 
 export default Invoice;

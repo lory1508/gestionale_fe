@@ -16,8 +16,8 @@
   <div class="flex flex-wrap">
     <div
       v-for="customer in customers"
-      :key="customer.license"
-      class="w-full lg:w-1/3 p-4"
+      :key="customer._id"
+      class="w-full lg:w-1/3 p-6"
     >
       <CustomerCard :customer="customer" @delete="getCustomerData" @edit="updateCustomer" />
     </div>
@@ -27,11 +27,12 @@
 
 <script setup lang="ts">
 import { onMounted, ref } from 'vue';
+
 // components
 import { NButton, NDivider, useMessage } from 'naive-ui';
 import TitleAndButton from '@/components/common/TitleAndButton.vue';
-import customerCard from '@/components/customer/customerCard.vue';
-import customerDrawer from '@/components/customer/customerDrawer.vue';
+import CustomerCard from '@/components/customer/customerCard.vue';
+import CustomerDrawer from '@/components/customer/customerDrawer.vue';
 
 // types
 import Customer from '@/types/customer';
@@ -41,8 +42,8 @@ import { getCustomers } from '@/api/customers';
 
 const customers = ref([] as Customer[]);
 const showDrawer = ref(false);
-const message = useMessage();
 const pendingCustomer = ref({} as Customer);
+const message = useMessage();
 
 const toggleDrawer = () => {
   showDrawer.value = !showDrawer.value;
@@ -53,12 +54,22 @@ const closeDrawer = () => {
   showDrawer.value = false;
 }
 
+const createMessage = (text: string, type: string) => {
+  if(type === 'success')
+    message.success(text,{ duration: 5000 })
+  else if(type === 'error') 
+    message.error(text,{ duration: 5000 })
+  else 
+    message.info(text, { duration: 5000 })
+}
+
 const customerCreated = async () => {
   try {
     createMessage('Cliente aggiunto con successo', 'success');
     await getCustomerData();
   } catch (err) {
     createMessage('Errore durante l\'aggiunta del cliente', 'error');
+    console.error(err);
   }
 }
 
@@ -69,20 +80,10 @@ const updateCustomer = (customer: Customer) => {
 
 const getCustomerData = async () => {
   try {
-    customers.value = await getCustomers();
+    customers.value = await getCustomers();    
   } catch (err) {
     createMessage('Errore durante il recupero dei dati', 'error');
   }
-}
-
-const createMessage = (text: string, type: 'success' | 'error') => {
-  message({
-    type,
-    content: text,
-    duration: 3000,
-    showIcon: true,
-    theme: 'light'
-  });
 }
 
 onMounted(async () => {

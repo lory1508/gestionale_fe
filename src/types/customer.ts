@@ -1,10 +1,11 @@
+import { Value } from "naive-ui/es/date-picker/src/interface";
 interface Customer {
-  id: number;
-  name: string;
-  p_iva: string;
-  contact: string;
-  phone: string;
-  start_date: string;
+  _id: string | null;
+  ragioneSociale: string;
+  pIva: string;
+  contatto: string | null;
+  numeroTelefono: string;
+  dataInizioCollaborazione: Value | null | undefined;
 }
 
 export default Customer;

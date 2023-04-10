@@ -17,7 +17,7 @@
     <div
       v-for="driver in drivers"
       :key="driver.license"
-      class="w-full lg:w-1/3 p-4"
+      class="w-full lg:w-1/3 p-6"
     >
       <DriverCard :driver="driver" @delete="getDriversData" @edit="updateDriver" />
     </div>
@@ -40,8 +40,8 @@ import TitleAndButton from '@/components/common/TitleAndButton.vue';
 
 const drivers = ref([] as Driver[]);
 const showDrawer = ref(false);
-const message = useMessage();
 const pendingDriver = ref({} as Driver);
+const message = useMessage();
 
 const toggleDrawer = () => {
   showDrawer.value = !showDrawer.value;
@@ -52,6 +52,15 @@ const closeDrawer = () => {
   showDrawer.value = false;
 }
 
+const createMessage = (text: string, type: string) => {
+  if(type === 'success')
+    message.success(text,{ duration: 5000 })
+  else if(type === 'error') 
+    message.error(text,{ duration: 5000 })
+  else 
+    message.info(text, { duration: 5000 })
+}
+
 const driverCreated = async () => {
   try {
     createMessage('Autista aggiunto con successo', 'success');
@@ -60,15 +69,6 @@ const driverCreated = async () => {
     createMessage('Errore durante l\'aggiunta dell\'autista', 'error');
     console.error(err);
   }
-}
-
-const createMessage = (text: string, type: string) => {
-  if(type === 'success')
-    message.success(text,{ duration: 5000 })
-  else if(type === 'error') 
-    message.error(text,{ duration: 5000 })
-  else 
-    message.info(text, { duration: 5000 })
 }
 
 const getDriversData = async () => {

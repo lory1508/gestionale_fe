@@ -1,5 +1,5 @@
 <template>
-  <div class="flex flex-row justify-between mt-4 w-full">
+  <div class="flex justify-between mt-4 w-full px-2">
     <div class="flex flex-col">
       <NH1>
         <NText type="primary">{{ title }}</NText>

@@ -1,6 +1,6 @@
 <template>
   <nav 
-    class="sticky top-0 flex flex-col justify-between items-center py-4 px-2 z-50"
+    class="sticky top-0 flex flex-col justify-between items-center py-4 px-2 h-screen"
   >
     <NMenu 
       v-model:value="activeKey"
@@ -17,15 +17,15 @@
       :render-icon="logoutIcon"
       type="info"
     >
-      Logout
+      <span class="hidden sm:block">Logout</span>
     </NButton>
   </nav>
 </template>
 
 <script setup lang="ts">
-import { h, ref, computed, onBeforeMount, Component, defineProps } from 'vue'
+import { h, ref, computed, onBeforeMount, Component, defineProps, onMounted, onUpdated } from 'vue'
 import { NButton, NMenu, NIcon } from 'naive-ui';
-import { RouterLink } from 'vue-router'
+import { RouterLink, useRoute, useRouter } from 'vue-router'
 import { useStore } from 'vuex'
 
 // icons
@@ -46,8 +46,9 @@ import {
 // Types
 import type { MenuOption } from 'naive-ui'
 import type { Ref } from 'vue'
-import router from '@/router';
 
+const route = useRoute()
+const router = useRouter()
 const store = useStore()
 const props = defineProps({
   collapsed: {
@@ -85,7 +86,7 @@ const menuOptions: MenuOption[] = [
     { 
       default: () => 'Home' 
     }),
-    key: 'go-back-home',
+    key: 'dashboard',
     icon: menuIcon(HomeOutline),
   },
   {
@@ -185,5 +186,8 @@ const expandIcon = () => {
   return h(NIcon, null, { default: () => h(CaretDownOutline) })
 }
 
-
+onMounted( async () => {
+  await router.isReady();
+  activeKey.value = route.name ? route.name.toString() : null
+})
 </script>

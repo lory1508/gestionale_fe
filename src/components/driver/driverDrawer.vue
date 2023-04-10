@@ -78,7 +78,7 @@
             round
             strong
           >
-            Aggiungi
+            Modifica
           </NButton>
         </div>
       </NDrawerContent>
@@ -90,7 +90,7 @@
 import { ref, defineProps, defineEmits, watch, computed, onBeforeUpdate } from 'vue';
 
 // api
-import { createDriver } from '@/api/drivers';
+import { createDriver, updateDriver } from '@/api/drivers';
 
 // components
 import { NButton, NDrawer, NDrawerContent, NForm, NFormItem, NDatePicker, NCheckbox, NInput, FormInst, NDivider } from 'naive-ui';
@@ -124,7 +124,7 @@ const newDriver: Ref<Driver> = ref({
 })
 
 const isEditing = computed(() => {
-  return props.updateDriver ? true : false;
+  return props.updateDriver?._id ? true : false;
 })
 
 const permanent = computed(() => {
@@ -157,7 +157,7 @@ const addDriver = async () => {
 
 const editDriver = async () => { 
   try{
-    await createDriver(newDriver.value);
+    await updateDriver(newDriver.value);
     emit('createdDriver', true)
     showDrawer.value = false;
   } catch (err) {
